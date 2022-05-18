@@ -12,8 +12,10 @@ app.use(express.json());
 
 function checksExistsUserAccount(request, response, next) {
   const { username } = request.headers;
+
   console.log(username);
-  const user = users.find(user => {user.username === username});
+
+  const user = users.find(user => user.username === username);
 
   if(!user){
     return response.status(404).json({
@@ -61,6 +63,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 
   user.todos.push(todo);
 
+  return response.status(200).send();
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
